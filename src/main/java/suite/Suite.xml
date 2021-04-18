@@ -11,7 +11,7 @@
 	<test name="Exam Test">
 		<classes>
 			<class
-				name="tests.WikiTest"></class>
+				name="tests.wikipedia.WikiTest"></class>
 		</classes>
 
 	</test>

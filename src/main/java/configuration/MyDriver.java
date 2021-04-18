@@ -14,14 +14,14 @@ public class MyDriver {
     public MyDriver(String browser) {
         switch (browser){
             case "chrome":
-                System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+                System.setProperty("webdriver.chrome.driver", "src/main/resources/drivers/chromedriver.exe");
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("start-maximized");
                 options.addArguments("--incognito");
                 webDriver=new ChromeDriver(options);
                 break;
             case "firefox":
-                System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
+                System.setProperty("webdriver.gecko.driver", "src/main/resources/drivers/geckodriver.exe");
                 FirefoxProfile firefoxProfile = new FirefoxProfile();
                 firefoxProfile.setPreference("browser.privatebrowsing.autostart", true);
                 webDriver=new FirefoxDriver();

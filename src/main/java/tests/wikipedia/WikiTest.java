@@ -1,12 +1,13 @@
-package tests;
+package tests.wikipedia;
 
 import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pages.ArticlePage;
-import pages.WikiHomePage;
+import pages.wikipedia.ArticlePage;
+import pages.wikipedia.WikiHomePage;
+import tests.BaseTest;
 
-public class WikiTest extends BaseTest{
+public class WikiTest extends BaseTest {
 
     @Test
     @Parameters({"busqueda"})

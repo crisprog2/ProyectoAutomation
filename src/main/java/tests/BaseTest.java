@@ -4,7 +4,7 @@ import configuration.MyDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
-import pages.WikiHomePage;
+import pages.wikipedia.WikiHomePage;
 
 public class BaseTest {
 
