@@ -7,11 +7,12 @@
 
 	<parameter name="browser" value="chrome"></parameter>
 	<parameter name="busqueda" value="Colombia"></parameter>
+	<parameter name="flyingFrom" value="LAS"></parameter>
+	<parameter name="flyingTo" value="LAX"></parameter>
 
 	<test name="Exam Test">
 		<classes>
-			<class
-				name="tests.wikipedia.WikiTest"></class>
+			<class name="tests.travelocity.Exercise1"></class>
 		</classes>
 
 	</test>

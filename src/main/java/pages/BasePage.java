@@ -8,15 +8,21 @@ public abstract class BasePage {
 
     private WebDriver webDriver;
     private WebDriverWait webDriverWait;
+    private WebDriverWait webDriverWaitResultPageTravelocity;
 
     public BasePage(WebDriver webDriver) {
         PageFactory.initElements(webDriver, this);
         webDriverWait=new WebDriverWait(webDriver, 10);
+        webDriverWaitResultPageTravelocity=new WebDriverWait(webDriver, 60);
         this.webDriver = webDriver;
     }
 
     public WebDriverWait getWebDriverWait() {
         return webDriverWait;
+    }
+
+    public WebDriverWait getWebDriverWaitResultPageTravelocity() {
+        return webDriverWaitResultPageTravelocity;
     }
 
     protected WebDriver getWebDriver() {
