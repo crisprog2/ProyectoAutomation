@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import pages.travelocity.CheckoutPage;
 import pages.travelocity.FlightDetailsPage;
 import pages.travelocity.FlightsResultPage;
 import pages.travelocity.HomePage;
@@ -11,8 +12,9 @@ import tests.BaseTest;
 
 public class Exercise1 extends BaseTest {
 
-    //HomePage homePage=getHomePage();
     private FlightsResultPage flightsResultPage;
+    private FlightDetailsPage flightDetailsPage;
+    private CheckoutPage checkoutPage;
 
     public FlightsResultPage getFlightsResultPage() {
         return flightsResultPage;
@@ -20,6 +22,22 @@ public class Exercise1 extends BaseTest {
 
     public void setFlightsResultPage(FlightsResultPage flightsResultPage) {
         this.flightsResultPage = flightsResultPage;
+    }
+
+    public FlightDetailsPage getFlightDetailsPage() {
+        return flightDetailsPage;
+    }
+
+    public void setFlightDetailsPage(FlightDetailsPage flightDetailsPage) {
+        this.flightDetailsPage = flightDetailsPage;
+    }
+
+    public CheckoutPage getCheckoutPage() {
+        return checkoutPage;
+    }
+
+    public void setCheckoutPage(CheckoutPage checkoutPage) {
+        this.checkoutPage = checkoutPage;
     }
 
     @Test(description = "Step 1 for Exam first item ")
@@ -54,6 +72,9 @@ public class Exercise1 extends BaseTest {
         for (int i = 0; i < flightsResultPage.getBaggageFees().size(); i++) {
             softAssert.assertEquals(flightsResultPage.getBaggageFees().get(i).isDisplayed(), true);
         }
+        /*
+        *Realiza todas las validaciones anteriores en una sola
+         */
 
         softAssert.assertAll();
 
@@ -84,7 +105,31 @@ public class Exercise1 extends BaseTest {
     public void step6() {
         FlightsResultPage flightsResultPage=getFlightsResultPage();
         FlightDetailsPage flightDetailsPage=flightsResultPage.actionButtonContinue2();
-        Assert.assertEquals(flightDetailsPage.getTitle(), "Las Vegas to Los Angeles");
+        setFlightDetailsPage(flightDetailsPage);
+        SoftAssert softAssert=new SoftAssert();
+        softAssert.assertEquals(flightDetailsPage.getTotalTrip(), "$183.93");
+        softAssert.assertEquals(flightDetailsPage.getTitleDepartureFlight(), "Las Vegas to Los Angeles");
+        softAssert.assertEquals(flightDetailsPage.getTitleReturningFlight(), "Ontario to Las Vegas");
+        softAssert.assertAll();
+    }
+
+    @Test(description = "Step 7 for Exam first item ")
+    public void step7() {
+        FlightDetailsPage flightDetailsPage=getFlightDetailsPage();
+        CheckoutPage checkoutPage=flightDetailsPage.actionCheckOutButton();
+        setCheckoutPage(checkoutPage);
+    }
+
+    @Test(description = "Step 8 for Exam first item ")
+    public void step8() {
+        CheckoutPage checkoutPage=getCheckoutPage();
+        SoftAssert softAssert=new SoftAssert();
+        softAssert.assertEquals(checkoutPage.getH1Text(), "Secure booking - only takes a few minutes!");
+        softAssert.assertEquals(checkoutPage.getTravelingTitle(), "Who's traveling?");
+        softAssert.assertEquals(checkoutPage.getTotalTripText(), "$183.93");
+        softAssert.assertEquals(checkoutPage.getDepartureTitle(), "Las Vegas (LAS) to Los Angeles (LAX)");
+        softAssert.assertEquals(checkoutPage.getReturningTitle(), "Ontario (ONT) to Las Vegas (LAS)");
+        softAssert.assertAll();
     }
 
 }
