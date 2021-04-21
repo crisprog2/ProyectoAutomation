@@ -35,6 +35,12 @@ public class HomePage extends BasePage {
     @FindBy(id = "d1-btn")
     private WebElement buttonDepartingDate;
 
+    @FindBy(id = "add-hotel-checkbox")
+    private WebElement checkBoxHotel;
+
+    @FindBy(id = "add-car-checkbox")
+    private WebElement checkBoxCar;
+
     @FindBy(xpath = "/html/body/div[1]/div[1]/div/div[1]/div/div[1]/div[1]/div/figure/div[3]/div/div/div/div[2]/div/form/div[3]/div[2]/button")
     private WebElement searchButtonFlight;
 
@@ -82,6 +88,41 @@ public class HomePage extends BasePage {
         searchButton.click();
 
         return new FlightsResultPage(getWebDriver());
+    }
+
+    public HotelResultPage searchFlighPlusHotel(String flyingFrom, String flyingTo) {
+        getWebDriverWait().until(ExpectedConditions.elementToBeClickable(flightsButtonMenu));
+
+        flightsButtonMenu.click();
+
+        buttonFieldOriginFlight.click();
+        fieldOriginFlight.sendKeys(flyingFrom);
+        firstResultSearchOriginFlight.click();
+
+        buttonFieldDestinationFlight.click();
+        fieldDestinationFlight.sendKeys(flyingTo);
+        firstResultSearchDestinationFlight.click();
+
+        buttonDepartingDate.click();
+        getWebDriverWait().until(ExpectedConditions.elementToBeClickable(buttonNextElementDatePicker));
+        buttonNextElementDatePicker.click();
+        getWebDriverWait().until(ExpectedConditions.elementToBeClickable(buttonNextElementDatePicker));
+        buttonNextElementDatePicker.click();
+
+        List<WebElement> calendarMonthDeparting=monthDepartingDatePicker.findElements(By.tagName("button"));
+        WebElement dayMonthDeparting=calendarMonthDeparting.get(17);
+        WebElement dayMonthReturning=calendarMonthDeparting.get(30);
+        dayMonthDeparting.click();
+        dayMonthReturning.click();
+        buttonDatePicker.click();
+
+        checkBoxHotel.click();
+        checkBoxCar.click();
+
+        searchButton.click();
+
+        return new HotelResultPage(getWebDriver());
+
     }
 
 }
