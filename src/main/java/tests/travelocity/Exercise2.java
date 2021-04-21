@@ -6,11 +6,39 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.travelocity.HomePage;
 import pages.travelocity.HotelResultPage;
+import pages.travelocity.RoomSelectHotel;
 import tests.BaseTest;
 
 public class Exercise2 extends BaseTest {
 
+    private String hotelName;
+    private String hotelPrice;
     private HotelResultPage hotelResultPage;
+    private RoomSelectHotel roomSelectHotel;
+
+    public String getHotelName() {
+        return hotelName;
+    }
+
+    public void setHotelName(String hotelName) {
+        this.hotelName = hotelName;
+    }
+
+    public String getHotelPrice() {
+        return hotelPrice;
+    }
+
+    public void setHotelPrice(String hotelPrice) {
+        this.hotelPrice = hotelPrice;
+    }
+
+    public RoomSelectHotel getRoomSelectHotel() {
+        return roomSelectHotel;
+    }
+
+    public void setRoomSelectHotel(RoomSelectHotel roomSelectHotel) {
+        this.roomSelectHotel = roomSelectHotel;
+    }
 
     public HotelResultPage getHotelResultPage() {
         return hotelResultPage;
@@ -47,10 +75,22 @@ public class Exercise2 extends BaseTest {
     }
 
     @Test(description = "Step 5 for Exam two item ")
-    public void step5() throws InterruptedException {
+    public void step5() {
         HotelResultPage hotelResultPage=getHotelResultPage();
-        hotelResultPage.selectFirstHotelWith3Stars();
-        Thread.sleep(10000);
+        RoomSelectHotel roomSelectHotel=hotelResultPage.selectFirstHotelWith3Stars();
+        setRoomSelectHotel(roomSelectHotel);
+        setHotelName(hotelResultPage.getNameHotel());
+        setHotelPrice(hotelResultPage.getPriceHotel());
+    }
+
+    @Test(description = "Step 6 for Exam two item ")
+    public void step6() {
+        RoomSelectHotel roomSelectHotel=getRoomSelectHotel();
+        SoftAssert softAssert=new SoftAssert();
+        softAssert.assertEquals(roomSelectHotel.getTitleNameHotel(), getHotelName());
+        softAssert.assertEquals(roomSelectHotel.getPriceHotel(), getHotelPrice());
+        softAssert.assertEquals(roomSelectHotel.buttonReserveIsPresent(), true);
+        softAssert.assertAll();
     }
 
 }

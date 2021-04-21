@@ -16,6 +16,25 @@ public class HotelResultPage extends BasePage {
         super(webDriver);
     }
 
+    private String nameHotel;
+    private String priceHotel;
+
+    public String getNameHotel() {
+        return nameHotel;
+    }
+
+    public void setNameHotel(String nameHotel) {
+        this.nameHotel = nameHotel;
+    }
+
+    public String getPriceHotel() {
+        return priceHotel;
+    }
+
+    public void setPriceHotel(String priceHotel) {
+        this.priceHotel = priceHotel;
+    }
+
     @FindBy(id = "sort")
     private WebElement sortResult;
 
@@ -66,12 +85,13 @@ public class HotelResultPage extends BasePage {
     public void sortByPrice(){
         getWebDriverWaitResultPageTravelocity().until(ExpectedConditions.visibilityOf(sortResult));
         getWebDriverWaitResultPageTravelocity().until(ExpectedConditions.visibilityOf(buttonShowMore));
+        getWebDriverWaitResultPageTravelocity().until(ExpectedConditions.elementToBeClickable(buttonShowMore));
         sortResult.click();
         priceSelectOption.click();
         buttonShowMore.click();
     }
 
-    public void selectFirstHotelWith3Stars(){
+    public RoomSelectHotel selectFirstHotelWith3Stars(){
         getWebDriverWaitResultPageTravelocity().until(ExpectedConditions.visibilityOf(hotelList));
         List<WebElement> resultListElements=hotelList.findElements(By.cssSelector(".uitk-type-300.uitk-type-bold.all-r-padding-one"));
         List<WebElement> resultListHotels=hotelList.findElements(By.cssSelector(".uitk-card.uitk-grid.imagelayout-left-fullbleed"));
@@ -83,7 +103,12 @@ public class HotelResultPage extends BasePage {
             }
         }
         WebElement buttonHotel=resultListHotels.get(index);
+        setNameHotel(hotelList.findElements(By.tagName("h3")).get(index+1).getText());
+        setPriceHotel(hotelList.findElements(By.cssSelector(".uitk-cell.loyalty-display-price.all-cell-shrink")).get(index+1).getText());
         buttonHotel.click();
+        ArrayList<String> tabs2 = new ArrayList<String> (getWebDriver().getWindowHandles());
+        getWebDriver().switchTo().window(tabs2.get(1));
+        return new RoomSelectHotel(getWebDriver());
     }
 
 }
